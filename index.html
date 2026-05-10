@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Специальность 09.03.01 - Информатика и вычислительная техника</title>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    line-height: 1.5;
+    color: #333;
+    background-color: #f8fafc;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+/* NAVBAR */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 3000;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.logo {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.logo span {
+    color: #3b82f6;
+}
+
+/* AUTH BUTTONS */
+.auth-buttons {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+/* User info container */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.user-name {
+    color: #fff;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.btn {
+    padding: 0.5rem 1.2rem;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.btn-login {
+    background: transparent;
+    color: #fff;
+    border: 1px solid #3b82f6;
+}
+
+.btn-login:hover {
+    background: #3b82f6;
+}
+
+.btn-register {
+    background: #3b82f6;
+    color: #fff;
+}
+
+.btn-register:hover {
+    background: #2563eb;
+}
+
+.btn-logout {
+    background: #ef4444;
+    color: #fff;
+}
+
+.btn-logout:hover {
+    background: #dc2626;
+}
+
+/* HERO */
+section {
+    padding: 120px 1.5rem 60px;
+}
+
+#hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(135deg, #1e293b, #334155);
+    color: white;
+}
+
+#hero .container {
+    max-width: 800px;
+    width: 100%;
+    padding: 0 1rem;
+}
+
+#hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+#hero h1 span {
+    color: #3b82f6;
+}
+
+#hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    color: #cbd5e1;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.hero-btn {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+}
+
+/* FOOTER */
+footer {
+    background: #0f172a;
+    color: #64748b;
+    text-align: center;
+    padding: 2rem;
+}
+
+/* CHAT IFRAME */
+.chat-iframe {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 400px;
+    height: 600px;
+    border: none;
+    border-radius: 18px;
+    z-index: 2000;
+}
+
+/* планшет */
+@media (max-width: 900px) {
+    .chat-iframe {
+        width: 360px;
+        height: 550px;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .chat-iframe {
+        width: 340px;
+        height: 520px;
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    nav {
+        padding: 0.7rem 1rem;
+    }
+    
+    #hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    #hero p {
+        font-size: 1.05rem;
+    }
+}
+
+/* Мобилка - navbar в две строки */
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0.6rem 1rem;
+        gap: 0.6rem;
+    }
+    
+    .logo {
+        text-align: center;
+        font-size: 1.3rem;
+    }
+    
+    .auth-buttons,
+    .user-info {
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .user-name {
+        font-size: 0.85rem;
+        text-align: center;
+    }
+    
+    .btn {
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* МОБИЛКА вертикальная (portrait) */
+@media (max-width: 480px) and (orientation: portrait) {
+    .chat-iframe {
+        position: fixed;
+        top: 90px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: calc(100vh - 90px);
+        height: calc(100dvh - 90px);
+        border-radius: 0;
+        z-index: 2500;
+    }
+
+    #hero {
+        padding-top: 110px;
+    }
+    
+    #hero h1 {
+        font-size: 1.8rem;
+    }
+
+    #hero p {
+        font-size: 0.95rem;
+    }
+    
+    .hero-btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+/* МОБИЛКА горизонтальная (landscape) */
+@media (max-width: 900px) and (orientation: landscape) {
+    nav {
+        flex-direction: row;
+        padding: 0.4rem 1rem;
+    }
+    
+    .logo {
+        font-size: 1.1rem;
+    }
+    
+    .auth-buttons,
+    .user-info {
+        justify-content: flex-end;
+    }
+    
+    .user-name {
+        font-size: 0.75rem;
+        max-width: 180px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .btn {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.8rem;
+    }
+
+    .chat-iframe {
+        position: fixed;
+        top: 50px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: calc(100vh - 50px);
+        height: calc(100dvh - 50px);
+        border-radius: 0;
+        z-index: 2500;
+    }
+    
+    #hero {
+        min-height: 100vh;
+        min-height: 100dvh;
+        padding-top: 60px;
+        padding-bottom: 30px;
+    }
+    
+    #hero h1 {
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    #hero p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-btn {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    
+    footer {
+        padding: 1rem;
+    }
+}
+
+/* маленькие телефоны вертикально */
+@media (max-width: 380px) and (orientation: portrait) {
+    .chat-iframe {
+        top: 85px;
+        height: calc(100vh - 85px);
+        height: calc(100dvh - 85px);
+    }
+    
+    .btn {
+        padding: 0.35rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+    
+    .user-name {
+        font-size: 0.8rem;
+    }
+    
+    #hero h1 {
+        font-size: 1.5rem;
+    }
+    
+    #hero p {
+        font-size: 0.85rem;
+    }
+}
+
+/* маленькие телефоны горизонтально */
+@media (max-height: 400px) and (orientation: landscape) {
+    .chat-iframe {
+        top: 45px;
+        height: calc(100vh - 45px);
+        height: calc(100dvh - 45px);
+    }
+    
+    nav {
+        padding: 0.3rem 0.8rem;
+    }
+    
+    .logo {
+        font-size: 1rem;
+    }
+    
+    .btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+    }
+    
+    .user-name {
+        font-size: 0.7rem;
+        max-width: 150px;
+    }
+    
+    #hero h1 {
+        font-size: 1.4rem;
+    }
+    
+    #hero p {
+        font-size: 0.8rem;
+        margin-bottom: 0.8rem;
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Safe area для iPhone с челкой */
+@supports (padding: max(0px)) {
+    nav {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+    }
+    
+    .chat-iframe {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+    </style>
+</head>
+<body>
+
+<iframe src="nn.html" class="chat-iframe" loading="lazy" allowfullscreen></iframe>
+
+<nav>
+    <div class="logo">Я<span>Магистр</span></div>
+    <div class="auth-buttons" id="authButtons"></div>
+</nav>
+
+<section id="hero">
+    <div class="container">
+        <h1>Специальность <span>09.03.01</span></h1>
+        <p>Информатика и вычислительная техника - твой путь в мир высоких технологий и перспективной карьеры</p>
+        <div class="button-group">
+            <a href="https://magistr.donstu-talant.ru/login/signup.php" class="btn btn-register hero-btn" target="_blank">Подать заявку</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>ЯМагистр. Все права защищены. 2026</p>
+</footer>
+
+<script>
+function sendAuthToIframe() {
+    const iframe = document.querySelector('.chat-iframe');
+    if (iframe && iframe.contentWindow) {
+        const token = localStorage.getItem('auth_token');
+        const user = JSON.parse(localStorage.getItem('user') || 'null');
+        
+        // 🆕 НЕ отправляем данные, если пользователь не авторизован
+        if (!token || !user) {
+            return; // Просто ничего не делаем
+        }
+        
+        iframe.contentWindow.postMessage({
+            type: 'AUTH_DATA',
+            token: token,
+            user: user
+        }, '*');
+    }
+}
+
+function checkAuth() {
+    const token = localStorage.getItem('auth_token');
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    
+    const authButtons = document.getElementById('authButtons');
+    
+    if (token && user) {
+        authButtons.innerHTML = `
+            <div class="user-info">
+                <span class="user-name">${user.fullname}</span>
+                <button class="btn btn-logout" onclick="logout()">Выйти</button>
+            </div>
+        `;
+    } else {
+        authButtons.innerHTML = `
+            <a href="login.html" class="btn btn-login">Войти</a>
+            <a href="register.html" class="btn btn-register">Регистрация</a>
+        `;
+    }
+    
+    sendAuthToIframe();
+}
+
+function logout() {
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('user');
+    checkAuth();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    checkAuth();
+    
+    const iframe = document.querySelector('.chat-iframe');
+    if (iframe) {
+        iframe.addEventListener('load', function() {
+            sendAuthToIframe();
+        });
+    }
+});
+
+window.addEventListener('storage', function(e) {
+    if (e.key === 'auth_token' || e.key === 'user') {
+        checkAuth();
+    }
+});
+
+setInterval(function() {
+    const iframe = document.querySelector('.chat-iframe');
+    if (iframe && iframe.contentWindow && iframe.style.display !== 'none') {
+        sendAuthToIframe();
+    }
+}, 30000);
+</script>
+</body>
+</html>

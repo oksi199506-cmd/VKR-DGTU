@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Регистрация — Информатика и вычислительная техника</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 1rem 1.5rem;
+        }
+        
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 0.9rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+        }
+        
+        .logo { 
+            color: #fff; 
+            font-size: 1.5rem; 
+            font-weight: bold;
+            letter-spacing: -0.3px;
+        }
+        
+        .logo span { color: #3b82f6; }
+        
+        .btn-back-home {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .btn-back-home:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+        }
+        
+        .container {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(16px);
+            padding: 2rem 1.8rem;
+            border-radius: 28px;
+            width: 100%;
+            max-width: 480px;
+            border: 1px solid rgba(255,255,255,0.18);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 1.8rem;
+            font-size: 1.9rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff, #94a3b8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        
+        .form-group { margin-bottom: 1.3rem; }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #e2e8f0;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: none;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.92);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.2s;
+            color: #1e293b;
+        }
+        
+        input:focus {
+            outline: none;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.4);
+        }
+        
+        .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.88rem;
+            margin: 1.2rem 0 1.5rem;
+            color: #cbd5e1;
+        }
+        
+        .checkbox input {
+            width: 18px;
+            height: 18px;
+            accent-color: #3b82f6;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        
+        .btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59,130,246,0.4);
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 1.8rem;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+        
+        .login-link a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 480px) {
+            body { padding: 70px 0.9rem 1rem; }
+            .nav { padding: 0.7rem 1rem; }
+            .logo { font-size: 1.3rem; }
+            .container { padding: 1.6rem 1.2rem; border-radius: 24px; }
+            h1 { font-size: 1.7rem; }
+            input { padding: 0.8rem 0.9rem; font-size: 16px; }
+            .btn-back-home { padding: 0.4rem 1rem; font-size: 0.8rem; }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .btn, .btn-back-home { transition: none; }
+        }
+        
+        .error-message {
+            color: #f87171;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+        
+        .error-message.show { display: block; }
+        
+        /* Стили для тост уведомлений */
+        .custom-toast {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #10b981;
+            color: white;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 500;
+            z-index: 10000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            text-align: center;
+            animation: toastSlideIn 0.3s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        .custom-toast.error {
+            background: #ef4444;
+        }
+        
+        @keyframes toastSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        
+        @keyframes toastSlideOut {
+            from {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="logo">Я<span>Магистр</span></div>
+        <a href="index.html" class="btn-back-home">← На главную</a>
+    </nav>
+
+    <div class="container">
+        <h1>Регистрация</h1>
+        
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="fullname">ФИО</label>
+                <input type="text" id="fullname" name="fullname" placeholder="Иванов Иван Иванович" required>
+                <div class="error-message" id="fullnameError"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Электронная почта</label>
+                <input type="email" id="email" name="email" placeholder="your@email.ru" required>
+                <div class="error-message" id="emailError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password" placeholder="Придумайте пароль" required>
+                <div class="error-message" id="passwordError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Повторите пароль</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Повторите пароль" required>
+                <div class="error-message" id="confirmError"></div>
+            </div>
+
+            <button type="submit" class="btn">Зарегистрироваться</button>
+        </form>
+
+        <div class="login-link">
+            Уже есть аккаунт? <a href="login.html">Войти</a>
+        </div>
+    </div>
+    
+<script>
+const form = document.getElementById('registerForm');
+
+// Функция показа всплывающего уведомления (тоста)
+function showToast(message, isError = false) {
+    // Удаляем старый тост если есть
+    const oldToast = document.querySelector('.custom-toast');
+    if (oldToast) oldToast.remove();
+    
+    // Создаем новый тост
+    const toast = document.createElement('div');
+    toast.className = 'custom-toast' + (isError ? ' error' : '');
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    // Удаляем через 3 секунды с анимацией
+    setTimeout(() => {
+        toast.style.animation = 'toastSlideOut 0.3s ease';
+        setTimeout(() => {
+            if (toast.parentNode) toast.remove();
+        }, 300);
+    }, 3000);
+}
+
+function showError(elementId, message) {
+    const errorDiv = document.getElementById(elementId);
+    if (errorDiv) {
+        errorDiv.textContent = message;
+        errorDiv.classList.add('show');
+        setTimeout(() => errorDiv.classList.remove('show'), 5000);
+    }
+}
+
+form?.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const fullname = document.getElementById('fullname')?.value.trim();
+    const email = document.getElementById('email')?.value.trim();
+    const password = document.getElementById('password')?.value;
+    const confirm = document.getElementById('confirmPassword')?.value;
+    
+    let isValid = true;
+    
+    if (!fullname || fullname.length < 3) {
+        showError('fullnameError', 'Введите корректное ФИО (минимум 3 символа)');
+        isValid = false;
+    }
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+        showError('emailError', 'Введите корректный email');
+        isValid = false;
+    }
+    if (!password || password.length < 6) {
+        showError('passwordError', 'Пароль должен содержать не менее 6 символов');
+        isValid = false;
+    }
+    if (password !== confirm) {
+        showError('confirmError', 'Пароли не совпадают');
+        isValid = false;
+    }
+    
+    if (!isValid) return;
+    
+    const submitBtn = form.querySelector('.btn');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Регистрация...';
+    submitBtn.disabled = true;
+    
+    try {
+        const response = await fetch('api/register.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                fullname: fullname,
+                email: email,
+                password: password
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            // ✅ ВСПЛЫВАЮЩЕЕ УВЕДОМЛЕНИЕ вместо alert
+            showToast('Регистрация успешна! Перенаправление...', false);
+            
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 2000);
+        } else {
+            if (data.errors) {
+                showToast(data.errors[0], true);
+            } else {
+                showToast( (data.message || 'Ошибка при регистрации'), true);
+            }
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('Ошибка соединения с сервером', true);
+    } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }
+});
+</script>
+</body>
+</html>

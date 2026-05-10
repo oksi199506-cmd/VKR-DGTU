@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Вход — Информатика и вычислительная техника</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 1rem 1.5rem;
+        }
+        
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 0.9rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+        }
+        
+        .logo { 
+            color: #fff; 
+            font-size: 1.5rem; 
+            font-weight: bold;
+            letter-spacing: -0.3px;
+        }
+        
+        .logo span { color: #3b82f6; }
+        
+        .btn-back-home {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .btn-back-home:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+        }
+        
+        .container {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(16px);
+            padding: 2.2rem 1.8rem;
+            border-radius: 28px;
+            width: 100%;
+            max-width: 440px;
+            border: 1px solid rgba(255,255,255,0.18);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 1.8rem;
+            font-size: 1.9rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff, #94a3b8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        
+        .form-group { margin-bottom: 1.4rem; }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #e2e8f0;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: none;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.92);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.2s;
+            color: #1e293b;
+        }
+        
+        input:focus {
+            outline: none;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.4);
+        }
+        
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.8rem;
+            font-size: 0.88rem;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: #cbd5e1;
+        }
+        
+        .checkbox-label input {
+            width: 18px;
+            height: 18px;
+            accent-color: #3b82f6;
+        }
+        
+        .forgot-link {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        
+        .btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59,130,246,0.4);
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 1.8rem;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+        
+        .register-link a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        /* Toast уведомления */
+        .toast {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            padding: 0.9rem 1.5rem;
+            border-radius: 14px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.3s ease;
+            max-width: 90%;
+            text-align: center;
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .toast.success {
+            background: #10b981;
+            color: white;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+        }
+        
+        .toast.error {
+            background: #ef4444;
+            color: white;
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+        }
+        
+        @media (max-width: 480px) {
+            body { padding: 70px 0.9rem 1rem; }
+            .nav { padding: 0.7rem 1rem; }
+            .logo { font-size: 1.3rem; }
+            .container { padding: 1.6rem 1.2rem; border-radius: 24px; }
+            h1 { font-size: 1.7rem; }
+            input { padding: 0.8rem 0.9rem; font-size: 16px; }
+            .btn-back-home { padding: 0.4rem 1rem; font-size: 0.8rem; }
+            .toast { top: 70px; }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .btn, .btn-back-home, .toast { transition: none; }
+            .btn:hover { transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <div id="toast" class="toast"></div>
+    
+    <nav class="nav">
+        <div class="logo">Я<span>Магистр</span></div>
+        <a href="index.html" class="btn-back-home">← На главную</a>
+    </nav>
+
+    <div class="container">
+        <h1>Вход в аккаунт</h1>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Электронная почта</label>
+                <input type="email" id="email" name="email" placeholder="your@email.ru" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+            
+            <div class="options">
+                <a href="#" class="forgot-link">Забыли пароль?</a>
+            </div>
+
+            <button type="submit" class="btn">Войти</button>
+        </form>
+
+        <div class="register-link">
+            Нет аккаунта? <a href="register.html">Зарегистрироваться</a>
+        </div>
+    </div>
+    
+    <script>
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = 'toast ' + type;
+    toast.classList.add('show');
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+
+const form = document.getElementById('loginForm');
+
+form?.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById('email')?.value.trim();
+    const password = document.getElementById('password')?.value;
+    const remember = false;
+    
+    if (!email || !password) {
+        showToast('Заполните все поля', 'error');
+        return;
+    }
+    
+    const submitBtn = form.querySelector('.btn');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Вход...';
+    submitBtn.disabled = true;
+    
+    try {
+        const response = await fetch('api/login.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+                remember: remember
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            localStorage.setItem('auth_token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            
+            // Просто редирект без алерта
+            window.location.href = 'index.html';
+        } else {
+            showToast(data.message || 'Ошибка при входе', 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('Ошибка соединения с сервером', 'error');
+    } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }
+});
+</script>
+</body>
+</html>
